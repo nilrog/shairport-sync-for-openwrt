@@ -1,0 +1,50 @@
+choice
+  depends on PACKAGE_shairport-sync
+	prompt "Encryption Library"
+	default USE_OPENSSL
+	
+config USE_OPENSSL
+	bool "OpenSSL"
+	help
+	  Select this to use OpenSSL for encryption tasks and
+	  to include the libssl and libcrypto libraries in the build.
+
+config USE_POLARSSL
+	bool "PolarSSL"
+	help
+	  Select this to use PolarSSL for encryption tasks and
+	  to include the libpolarssl0 library in the build.
+
+endchoice
+
+menu "Zeroconf (\"Bonjour\") Support"
+  depends on PACKAGE_shairport-sync
+  config USE_AVAHI
+	  bool "Include Avahi"
+	  help 
+		  Select this to include support code in shairport-sync for Avahi.
+		  It will also include the full (dbus) version of Avahi,
+		  a system-wide zero configuration (zeroconf) service in the build.
+	  default y
+
+  config USE_TINYSVCMDNS
+	  bool "Include tinysvcmdns"
+	  help
+		  Select this to include tinysvcmdns, an embedded zero configuration
+		  (zeroconf) utility in shairport-sync.
+		  Not needed if you have a system-wide zeroconf service.
+	  default n
+endmenu
+
+menu "SoX Support"
+  depends on PACKAGE_shairport-sync
+  config USE_LIBSOXR
+	  bool "SoX Resampler Support"
+	  help 
+		  Select this to include support code in shairport-sync for libsoxr,
+		  the SoX Resampler library. This supports smoother audio frame "stuffing",
+		  but requires a fast processor.
+		  It will also include the libsoxr library in the build.
+		  At run time, libsoxr-based stuffing can then be chosen using a command-line option. 
+	  default y
+endmenu

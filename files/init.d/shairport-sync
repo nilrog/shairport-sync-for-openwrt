@@ -70,7 +70,10 @@ handle_shairport_sync() {
         fi                                                                                                                       
 }                                                                                                                                
                                                                                                                                  
-start() {                                                                                                                        
+start() {
+
+# if you are using tinysvcmdns, you might need to uncomment the following line to allow multicasting to work properly -- choose the correct port (eth0 suggested)
+#        route add -net 224.0.0.0 netmask 224.0.0.0 eth0
         config_load 'shairport-sync'                                                                                             
                                                                                                                                  
 #hmm -- only one copy of shairport-sync can be running.                                                                          
