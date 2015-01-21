@@ -22,15 +22,15 @@ PKG_FIXUP:=autoreconf
 
 PKG_BUILD_PARALLEL:=1
 
-PKG_BUILD_DEPENDS:= +libpthread +libpolarssl +libavahi-client +alsa-lib +libdaemon +libsoxr
+PKG_BUILD_DEPENDS:= +libpthread +libopenssl +libavahi-client +alsa-lib +libdaemon +libsoxr
 
 include $(INCLUDE_DIR)/package.mk
 
 CONFIGURE_ARGS+= \
 	--with-alsa \
-	--with-tinysvcmdns \
+	--with-avahi \
 	--with-soxr \
-	--with-ssl=polarssl
+	--with-ssl=openssl
 
 define Package/shairport-sync/Default
   SECTION:=sound
@@ -41,7 +41,7 @@ endef
 
 define Package/shairport-sync
   $(Package/shairport-sync/Default)
-   DEPENDS:= +libpthread +libpolarssl +alsa-lib +libdaemon +libsoxr +libpopt
+   DEPENDS:= +libpthread +libopenssl +alsa-lib +libdaemon +libsoxr +libpopt
 endef
 
 define Package/shairport-sync/description
