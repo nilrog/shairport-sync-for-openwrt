@@ -16,9 +16,12 @@ handle_shairport_sync() {
         local awaitactioncompletion                                                                                              
         local device                                                                                                             
         local devicetype                                                                                                         
-        local volumecontrolname                                                                                                  
+        local volumecontrolname
+        local password
+        local tolerance                                                                                                  
         local beforeaction                                                                                                       
         local afteraction                                                                                                        
+        local mixer                                                                                                        
         config_get name "$1" name ""                                                                                             
         config_get port "$1" port ""                                                                                             
         config_get airplaylatency "$1" airplaylatency ""                                                                         
@@ -30,10 +33,15 @@ handle_shairport_sync() {
         config_get volumecontrolname "$1" volumecontrolname ""                                                                   
         config_get beforeaction "$1" beforeaction ""                                                                             
         config_get afteraction "$1" afteraction ""                                                                               
+        config_get password "$1" password ""                                                                               
+        config_get tolerance "$1" tolerance ""                                                                               
+        config_get mixer "$1" mixer ""                                                                               
                                                                                                                                  
         # all this assumes that the only syntactically awkward parameter is the name, so we treat it differently                 
         arglist=""                                                                                                               
         [ -z "$port" ] || arglist="$arglist -p $port"                                                                            
+        [ -z "$password" ] || arglist="$arglist --password=$password"                                                                            
+        [ -z "$tolerance" ] || arglist="$arglist --tolerance=$tolerance"                                                                            
         [ -z "$airplaylatency" ] || arglist="$arglist -A $airplaylatency"                                                        
         [ -z "$ituneslatency" ] || arglist="$arglist -i $ituneslatency"                                                          
         if [ -n "$stuffing" ] ; then                                                                                             
@@ -57,6 +65,7 @@ handle_shairport_sync() {
                                                                                                                                  
         belist=""                                                                                                                
         [ -z "$device" ] || belist="$belist -d $device"                                                                          
+        [ -z "$mixer" ] || belist="$belist -m $mixer"                                                                          
         [ -z "$devicetype" ] || belist="$belist -t $devicetype"                                                                  
         [ -z "$volumecontrolname" ] || belist="$belist -c $volumecontrolname"                                                    
         [ -z "$belist" ] || belist=" --$belist"                                                                                  

@@ -1,10 +1,11 @@
 # Uncomment the stanza you want, and make sure to comment out the others, especially duplicate options.
+# Check the man page, available on the web via a link from https://github.com/mikebrady/shairport-sync
 
 #Arguments and defaults are as follows
 config shairport-sync
 #       option name 'Shairport Sync' 		#default name, "Shairport Sync on %d"
-#       option device default        		#default soundcard, volume control by software
-						#(Troubleshooting hint: make sure the soundcard's volume is turned up fully -- use alsamixer or amixer)
+#       option device default        		#default output device, volume control by software
+						#(Troubleshooting hint: make sure the output device's volume is turned up fully -- use alsamixer or amixer)
 #       option airplaylatency 88200
 #       option ituneslatency 99400
 #       option port 5000
@@ -13,14 +14,21 @@ config shairport-sync
 #       option beforeaction <action> 		#action must be a fully qualified program with no arguments. Default no action.
 #       option afteraction <action> 		#action must be a fully qualified program with no arguments. Default no action.
 #       option devicetype <devicetype>
-#       option volumecontrolname <name>
+#       option device default        		#default soundcard, volume control by software
+#       option mixer <name>         #name of the mixer, if different from the output device -- default is the output device
+#       option tolerance 88         #allow a sync error of this number of frames before attempting to correct it
+#       option password <secret>    #require a password of <secret> to allow connection and streaming
+# NB the <secret> must be simple -- if it needs to be quoted, this script won't work.
 
 #Here are some sample stanzas:
 
 #For Raspberry Pi using the built-in soundcard for the headphone jack
+#       option name "OpenWrtPi"
 #       option device 'hw:0'
 #       option devicetype hardware
-#       option volumecontrolname Master
+#       option volumecontrolname PCM
+#       option tolerance 200
+#       option password secret
 
 #For Raspberry Pi with the "3D Sound" USB Soundcard
 #        option name 'Pi'
@@ -33,3 +41,4 @@ config shairport-sync
 #        option device 'hw:1'
 #        option devicetype hardware
 #        option volumecontrolname PCM
+

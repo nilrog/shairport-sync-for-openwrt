@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 OpenWrt.org  
+# Copyright (C) 2014-2015 OpenWrt.org  
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,7 +9,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shairport-sync
-PKG_VERSION:=2.1.12
+PKG_VERSION:=2.2
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
@@ -18,22 +18,19 @@ PKG_SOURCE_VERSION:=$(PKG_VERSION)
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
+PKG_FIXUP:=autoreconf
+
 PKG_BUILD_PARALLEL:=1
 
-PKG_BUILD_DEPENDS:= +libpthread +libopenssl +libavahi-client +alsa-lib +libdaemon +libsoxr
+PKG_BUILD_DEPENDS:= +libpthread +libpolarssl +libavahi-client +alsa-lib +libdaemon +libsoxr
 
 include $(INCLUDE_DIR)/package.mk
 
 CONFIGURE_ARGS+= \
 	--with-alsa \
-	--with-avahi \
+	--with-tinysvcmdns \
 	--with-soxr \
-	--with-ssl=openssl
-
-define Build/Configure
-	(cd $(PKG_BUILD_DIR); autoreconf -i -f)
-	$(call Build/Configure/Default, )
-endef
+	--with-ssl=polarssl
 
 define Package/shairport-sync/Default
   SECTION:=sound
@@ -44,7 +41,7 @@ endef
 
 define Package/shairport-sync
   $(Package/shairport-sync/Default)
-   DEPENDS:= +libpthread +libopenssl +libavahi-client +alsa-lib +libdaemon +libsoxr +libpopt
+   DEPENDS:= +libpthread +libpolarssl +alsa-lib +libdaemon +libsoxr +libpopt
 endef
 
 define Package/shairport-sync/description
