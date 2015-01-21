@@ -1,7 +1,7 @@
 Shairport Sync for OpenWrt
 ======================
 
-This is an OpenWrt package for building and installing ShairPort Sync, which is at https://github.com/mikebrady/shairport-sync.
+This is an OpenWrt package for building and installing Shairport Sync, which is at https://github.com/mikebrady/shairport-sync.
 Shairport Sync allows you to play audio from iTunes or from an iOS device. The audio stays synchronised with other audio devices playing from the same source. Please note that the sound card you use must be capable of working with 44,100 audio frames per second interleaved PCM stereo.
 
 The approach taken here is to build a custom version of OpenWrt in two stages: first, download and build standard trunk OpenWrt, and, second, add Shairport Sync and all the extras it depends on.
