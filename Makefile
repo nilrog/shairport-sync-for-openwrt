@@ -9,7 +9,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shairport-sync
-PKG_VERSION:=2.2
+PKG_VERSION:=2.2.3
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
@@ -22,14 +22,13 @@ PKG_FIXUP:=autoreconf
 
 PKG_BUILD_PARALLEL:=1
 
-PKG_BUILD_DEPENDS:= +libpthread +libopenssl +libavahi-client +alsa-lib +libdaemon +libsoxr
+PKG_BUILD_DEPENDS:= +libpthread +libopenssl +alsa-lib +libdaemon
 
 include $(INCLUDE_DIR)/package.mk
 
 CONFIGURE_ARGS+= \
 	--with-alsa \
-	--with-avahi \
-	--with-soxr \
+	--with-tinysvcmdns \
 	--with-ssl=openssl
 
 define Package/shairport-sync/Default
