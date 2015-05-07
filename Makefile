@@ -40,7 +40,7 @@ endef
 
 define Package/shairport-sync
   $(Package/shairport-sync/Default)
-   DEPENDS:= +libpthread +libopenssl +alsa-lib +libdaemon +libsoxr +libpopt
+   DEPENDS:= +libpthread +libopenssl +alsa-lib +libdaemon +libpopt
 endef
 
 define Package/shairport-sync/description
